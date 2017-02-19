@@ -16,9 +16,9 @@ class CreateNominationsTable extends Migration
         Schema::create('nominations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('category_id');
+            $table->string('movie')->default('');
+            $table->string('category')->default('');
             $table->boolean('winner')->default(false);
-            $table->timestamps();
         });
     }
 

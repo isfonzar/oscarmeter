@@ -10,8 +10,8 @@
         {
             $oscarLibrary = new OscarLibrary();
 
-            $data = $oscarLibrary->get();
+            $data['nominations'] = $oscarLibrary->get();
 
-            return view('welcome', $data);
+            return view('home', $data);
         }
     }

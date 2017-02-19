@@ -1,15 +1,15 @@
 <?php
 
-    namespace App\Libraries;
+    namespace App\Http\Controllers;
 
     use App\Models\Nominations;
     use App\Services\OscarNominations;
     use App\Services\Sentiment;
     use iiiicaro\SentimentThermometer\SentimentThermometer;
 
-    class OscarLibrary
+    class AnalysisController extends Controller
     {
-        public function get()
+        public function feed()
         {
             $oscarService = new OscarNominations(new Nominations());
 
@@ -19,13 +19,12 @@
                 'twitter' => [
                     'consumer_key' => env('TWITTER_CONSUMER_KEY'),
                     'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+                    'amount' => 100
                 ]
             ];
 
             $sentimentThermometer = new Sentiment(new SentimentThermometer($config));
 
-            $results = $sentimentThermometer->get($nominations);
-
-            return $results;
+            $sentimentThermometer->analyze($nominations);
         }
     }
