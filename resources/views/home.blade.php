@@ -29,9 +29,7 @@
 <div class="jumbotron header-image">
     <div class="container">
         <h1 class="header-title">The Oscars 2017 Trends</h1>
-        <p class="header-subtitle">See what people are saying about the nominations for <a target="_blank"
-                                                                                           href="http://oscar.go.com/">The
-                Oscars 2017</a> on social networks.<br>
+        <p class="header-subtitle">
             This website was made to display the power behind the <a target="_blank"
                                                                      href="https://github.com/isfonzar/sentiment-thermometer">Sentiment
                 Thermometer</a>'s social network feed analysis and displays people's opinions on the nominations for The
@@ -40,30 +38,49 @@
 </div>
 <div class="container text-center">
     <!-- Example row of columns -->
-    @foreach($nominations as $category => $nomination)
-        <h2><?= $category ?></h2>
 
-        <div>
-            @foreach($nomination as $name)
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                 aria-valuenow="<?= $name->analysis->pos ?>"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:<?= $name->analysis->pos?>%">
-                                <span><?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif
-                                - <?= $name->analysis->pos?>%</span>
-                            </div>
+    @foreach($nominations as $category => $nomination)
+        <div class="row">
+            <h2><b><?= $category ?></b></h2>
+
+            <div class="col-md-8">
+                <h3 class="text-center">How social networks see it</h3>
+                @foreach($nomination as $name)
+                    <h5 class="text-left"><?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif</h5>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                             aria-valuenow="<?= $name->analysis->pos ?>"
+                             aria-valuemin="0" aria-valuemax="100" style="width:<?= $name->analysis->pos?>%">
+                            <span><?= $name->analysis->pos?>% positive</span>
+                        </div>
+                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                             style="width:<?= $name->analysis->neg?>%">
+                            <span><?= $name->analysis->neg?>% negative</span>
+                        </div>
+                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                             style="width:<?= 100 - $name->analysis->pos - $name->analysis->neg?>%">
+                            <span><?= $name->analysis->neu?>% neutral</span>
                         </div>
                     </div>
-                    <div class="col-md-2"></div>
-                </div>
-            @endforeach
-            <p>Last update: <?= \Carbon\Carbon::parse($nomination[0]->analysis->created_at)->diffForHumans() ?>.</p>
-        </div>
+                @endforeach
+                <p>Last update: <?= \Carbon\Carbon::parse($nomination[0]->analysis->created_at)->diffForHumans() ?>.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>People's choice</h3>
+                <? $sum = 0; foreach($nomination as $name){ $sum += $name->analysis->pos; }?>
 
-        <hr>
+                <h4 style="color:darkgreen"><b><?= 100 * round($nomination[0]->analysis->pos / $sum, 4) ?>% - <?= $nomination[0]->name ?></b></h4>
+                <?php
+                    for ($i = 1; $i <= 3; $i++)
+                        {
+                            echo ('<h5>' . 100 * round($nomination[$i]->analysis->pos / $sum, 4)  . '% - ' . $nomination[$i]->name . '</h5>');
+                        }
+                ?>
+
+            </div>
+
+            <hr>
+        </div>
     @endforeach
 
     <hr>
