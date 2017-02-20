@@ -48,16 +48,16 @@
                 @foreach($nomination as $name)
                     <h5 class="text-left"><?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif</h5>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                        <div class="progress-bar progress-bar-success" role="progressbar"
                              aria-valuenow="<?= $name->analysis->pos ?>"
                              aria-valuemin="0" aria-valuemax="100" style="width:<?= $name->analysis->pos?>%">
                             <span><?= $name->analysis->pos?>% positive</span>
                         </div>
-                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                        <div class="progress-bar progress-bar-danger" role="progressbar"
                              style="width:<?= $name->analysis->neg?>%">
                             <span><?= $name->analysis->neg?>% negative</span>
                         </div>
-                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                        <div class="progress-bar progress-bar-info" role="progressbar"
                              style="width:<?= 100 - $name->analysis->pos - $name->analysis->neg?>%">
                             <span><?= $name->analysis->neu?>% neutral</span>
                         </div>
