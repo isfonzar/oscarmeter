@@ -11,29 +11,64 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<h1>Oscar 2017 social network's opinion on nominations</h1>
-@foreach($nominations as $category => $nomination)
-    <h2><?= $category ?></h2>
-    <ul>
+<div class="jumbotron header-image">
+    <div class="container">
+        <h1 class="header-title">The Oscars 2017 Trends</h1>
+        <p class="header-subtitle">See what people are saying about the nominations for <a target="_blank"
+                                                                                           href="http://oscar.go.com/">The
+                Oscars 2017</a> on social networks.<br>
+            This website was made to display the power behind the <a target="_blank"
+                                                                     href="https://github.com/isfonzar/sentiment-thermometer">Sentiment
+                Thermometer</a>'s social network feed analysis and displays people's opinions on the nominations for The
+            Awards.</p>
+    </div>
+</div>
+<div class="container text-center">
+    <!-- Example row of columns -->
+    @foreach($nominations as $category => $nomination)
+        <h2><?= $category ?></h2>
+
         @foreach($nomination as $name)
-            <li><?= $name->name ?></li>
-            <ul>
-                <li>Positive: <?= $name->analysis->pos ?></li>
-                <li>Negative: <?= $name->analysis->neg ?></li>
-                <li>Neutral: <?= $name->analysis->neu ?></li>
-            </ul>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="<?= $name->analysis->pos ?>"
+                             aria-valuemin="0" aria-valuemax="100" style="width:<?= $name->analysis->pos?>%">
+                            <?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif
+                            - <?= $name->analysis->pos?>%
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
         @endforeach
-    </ul>
-@endforeach
+
+        <hr>
+    @endforeach
+
+    <hr>
+
+    <footer>
+        <p>Show your support <a target="_blank" href="https://github.com/isfonzar/oscarmeter">here</a> and <a
+                    target="_blank" href="https://github.com/isfonzar/sentiment-thermometer">here</a>.</p>
+    </footer>
+</div>
 </body>
 </html>

@@ -53,6 +53,20 @@ return [
             'engine' => null,
         ],
 
+        'cron_mysql' => [
+            'driver' => 'mysql',
+            'host' => env('CRON_DB_HOST', '127.0.0.1'),
+            'port' => env('CRON_DB_PORT', '3306'),
+            'database' => env('CRON_DB_DATABASE', 'forge'),
+            'username' => env('CRON_DB_USERNAME', 'forge'),
+            'password' => env('CRON_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

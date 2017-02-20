@@ -13,7 +13,7 @@
         {
             $oscarService = new OscarNominations(new Nominations());
 
-            $nominations = $oscarService->getByCategory();
+            $nominations = $oscarService->getByCategoryCron();
 
             $config = [
                 'twitter' => [

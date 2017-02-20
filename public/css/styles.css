@@ -1,0 +1,42 @@
+.header-image {
+    background: url('http://az616578.vo.msecnd.net/files/2016/02/29/635923164763760803865410729_nn-140227-oscar-01-2115_861d801659781f5f434eb8735ce2561c.jpg') no-repeat center 20% fixed; -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.header-title {
+    color: black !important;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 44px;
+    line-height: 1em;
+    font-weight: bold;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+    transition: font 400ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;
+    display: inline-block;
+    margin: 0 0 0px 0;
+    padding: 16px 30px;
+    background: #f7e485;
+    background-color: rgba(247, 228, 133, 0.6);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    width: auto;
+}
+
+.header-subtitle {
+    color: black !important;
+    font-size: 18px;
+    font-weight: 300;display: inline-block;
+    margin: 0 0 0px 0;
+    padding: 16px 30px;
+    padding-top: 0;
+    background: #f7e485;
+    background-color: rgba(247, 228, 133, 0.6);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    width: auto;
+}
+
+.header-subtitle a {
+    color: darkblue !important;
+}
+

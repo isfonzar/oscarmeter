@@ -16,9 +16,11 @@
 
         public function get($categories)
         {
-            foreach ($categories as $category)
+            $response = [];
+
+            foreach ($categories as $categoryKey=> $category)
             {
-                foreach ($category as $nomination)
+                foreach ($category as $nominationKey => $nomination)
                 {
                     $nomination['analysis'] = DB::table('analysis')
                                                 ->select('*')
@@ -26,13 +28,20 @@
                                                 ->orderBy('id', 'desc')
                                                 ->first();
 
-                    $nomination['analysis']->pos = $nomination['analysis']->pos * 100 . '%';
-                    $nomination['analysis']->neg = $nomination['analysis']->neg * 100 . '%';
-                    $nomination['analysis']->neu = $nomination['analysis']->neu * 100 . '%';
+                    $nomination['analysis']->pos = round($nomination['analysis']->pos * 100);
+                    $nomination['analysis']->neg = round($nomination['analysis']->neg * 100);
+                    $nomination['analysis']->neu = round($nomination['analysis']->neu * 100);
                 }
+
+                // Gambeta da boa
+                usort($category, function ($a, $b) {
+                    return $b->analysis->pos - $a->analysis->pos;
+                });
+
+                $response[$categoryKey] = $category;
             }
 
-            return $categories;
+            return $response;
         }
 
         public function analyze($categories)
@@ -43,14 +52,16 @@
                 {
                     $analysis = $this->sentimentAnalysis->get($nomination->name);
 
-                    DB::table('analysis')->insert([
-                                                      'nomination_id' => $nomination->id,
-                                                      'pos'           => $analysis->positive,
-                                                      'neg'           => $analysis->negative,
-                                                      'neu'           => $analysis->neutral,
-                                                      'created_at'    => \Carbon\Carbon::now()->toDateTimeString(),
-                                                      'updated_at'    => \Carbon\Carbon::now()->toDateTimeString(),
-                                                  ]);
+                    DB::connection('cron_mysql')->table('analysis')->insert([
+                                                                                'nomination_id' => $nomination->id,
+                                                                                'pos'           => $analysis->positive,
+                                                                                'neg'           => $analysis->negative,
+                                                                                'neu'           => $analysis->neutral,
+                                                                                'created_at'    => \Carbon\Carbon::now()
+                                                                                                                 ->toDateTimeString(),
+                                                                                'updated_at'    => \Carbon\Carbon::now()
+                                                                                                                 ->toDateTimeString(),
+                                                                            ]);
 
                 }
             }
