@@ -57,7 +57,7 @@
                              style="width:<?= $name->analysis->neg?>%">
                             <span><?= $name->analysis->neg?>% negative</span>
                         </div>
-                        <div class="progress-bar progress-bar-info" role="progressbar"
+                        <div class="progress-bar progress-bar-warning" role="progressbar"
                              style="width:<?= 100 - $name->analysis->pos - $name->analysis->neg?>%">
                             <span><?= $name->analysis->neu?>% neutral</span>
                         </div>
