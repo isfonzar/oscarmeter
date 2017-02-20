@@ -31,6 +31,9 @@
                     $nomination['analysis']->pos = round($nomination['analysis']->pos * 100);
                     $nomination['analysis']->neg = round($nomination['analysis']->neg * 100);
                     $nomination['analysis']->neu = round($nomination['analysis']->neu * 100);
+
+                    $nomination['lastFetch'] = \Carbon\Carbon::now()
+                                                             ->diffForHumans();
                 }
 
                 // Gambeta da boa
