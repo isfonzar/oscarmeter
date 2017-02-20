@@ -49,18 +49,18 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar"
+                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                  aria-valuenow="<?= $name->analysis->pos ?>"
                                  aria-valuemin="0" aria-valuemax="100" style="width:<?= $name->analysis->pos?>%">
-                                <?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif
-                                - <?= $name->analysis->pos?>%
+                                <span><?= $name->name ?>@if(!empty($name->movie)), <?= $name->movie ?> @endif
+                                - <?= $name->analysis->pos?>%</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
             @endforeach
-            <p class="text-right">Last update: <?= \Carbon\Carbon::parse($nomination[0]->analysis->created_at)->diffForHumans() ?>.</p>
+            <p>Last update: <?= \Carbon\Carbon::parse($nomination[0]->analysis->created_at)->diffForHumans() ?>.</p>
         </div>
 
         <hr>
